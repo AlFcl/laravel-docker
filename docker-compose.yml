@@ -1,24 +1,19 @@
-services:
+version: '3.8'
 
-  laravel-docker:
-    container_name: laravel-docker
+services:
+ webserver:
+    container_name: "${CONTAINER_NAME}"
     build: .
     volumes:
-      - ./laravel-app:/var/www/html
+      - ./${VOLUMEN_NAME}:/var/www/html
     ports:
-      - 9000:80
-  
-  mysql_db:
-    image: mysql:latest
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: taravel_docker
-    ports:
-    - 3306:3306
-  
-  phpmyadmin:
-    image: phpmyadmin:latest
-    ports:
-      - 9001:80
-    environment:
-      - PMA_ARBITRARY=1
+      - "${PORT_PUBLIC}:${PORT_PRIVATE}"
+
+volumes:
+  volume:
+    driver: local
+
+networks:
+  default:
+    name: ${NETWORK}
+    external: true
