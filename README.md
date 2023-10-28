@@ -1,4 +1,7 @@
 🚀 Instrucciones en Español
+🌌 Origen del Proyecto
+
+Este proyecto está inspirado y basado en pitocms/laravel-docker. Sin embargo, ha sido mejorado y adaptado para ofrecer una experiencia más robusta y personalizada. Continuaremos haciendo mejoras y ajustes según veamos necesario.
 1. 🎥 Antes de comenzar
 
 Al igual que Alf necesita su comida y su sofá, primero necesitas asegurarte de tener instalado Docker y docker-compose en tu sistema.
@@ -23,6 +26,9 @@ bash
 
 ¡Listo! Ahora Alf y Laravel están listos para trabajar juntos en tu sistema.
 🚀 Instructions in English
+🌌 Project's Origin
+
+This project is inspired by and based on pitocms/laravel-docker. However, it has been enhanced and adapted to provide a more robust and customized experience. We will keep making improvements and adjustments as we see fit.
 1. 🎥 Before we start
 
 Just like Alf needs his food and his couch, you first need to ensure you have Docker and docker-compose installed on your system.
