@@ -38,6 +38,13 @@ run_command() {
         log_event "INFO" "Respuesta: $output"
     fi
 }
+if [ -f "$DIR/fix/fix.sh" ]; then
+    # Otorgar permisos de ejecución a fix.sh
+    chmod +x $DIR/fix/fix.sh
+else
+    log_event "ERROR" "El archivo fix.sh no fue encontrado en $DIR/fix/."
+    exit 1
+fi
 
 # Cargar las variables de entorno desde el archivo .env
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -48,17 +55,29 @@ else
     exit 1
 fi
 
+# Verificar si fix.sh existe
+if [ -f "$DIR/ fix.sh" ]; then
+    # Otorgar permisos de ejecución a fix.sh
+    chmod +x $DIR/fix.sh
+else
+    log_event "ERROR" "El archivo fix.sh no fue encontrado en $DIR/."
+    exit 1
+fi
+
 if [ "$EUID" -eq 0 ]; then
     echo "Es usuario root."
 
     run_command "docker-compose up -d" "Contenedor iniciado." "Error iniciando contenedor."
     run_command "docker exec $CONTAINER_NAME composer create-project --prefer-dist laravel/laravel ." "Proyecto creado." "Error creando proyecto."
-#CD $DIR/fix/fix.sh
-    run_command "./fix/fix.sh" "Fix ejecutado." "Error ejecutando fix."
+
+    # Ejecutar directamente usando la ruta completa
+    run_command "sh $DIR/ix.sh" "Fix ejecutado." "Error ejecutando fix."
 
 else
     echo "Necesita contraseña. Por favor, ingrese la contraseña para continuar."
     run_command "sudo docker-compose up -d" "Contenedor iniciado." "Error iniciando contenedor."
     run_command "sudo docker exec $CONTAINER_NAME composer create-project --prefer-dist laravel/laravel ." "Proyecto creado." "Error creando proyecto."
-    run_command "sudo $DIR/fix/fix.sh" "Fix ejecutado." "Error ejecutando fix."
+
+    # Ejecutar con sudo usando la ruta completa
+    run_command "sudo sh $DIR fix/fix.sh" "Fix ejecutado." "Error ejecutando fix."
 fi
